@@ -1,44 +1,48 @@
---Задание № 1
-CREATE TABLE IF NOT EXISTS Musicians(
-	Musician_ID SERIAL PRIMARY key,
-	Musician_name VARCHAR(50) NOT null
+
+CREATE TABLE IF NOT EXISTS artist(
+	artist_id SERIAL PRIMARY key,
+	artist_name VARCHAR(50) NOT null
 	);
 
-CREATE TABLE IF NOT EXISTS Musical_Genres (
-    Genres_ID SERIAL PRIMARY key,
-    Genres_name VARCHAR(50) NOT NULL
+CREATE TABLE IF NOT EXISTS music_Genre (
+    aenre_id SERIAL PRIMARY key,
+    aenre_name VARCHAR(50) NOT NULL
     );
 
-CREATE TABLE IF NOT EXISTS MusicianGenres (
-    MG_ID SERIAL PRIMARY key,
-    Genres INTEGER NOT NULL REFERENCES Musical_Genres(Genres_ID),
-    Musician INTEGER NOT NULL REFERENCES Musicians(Musician_ID)
+CREATE TABLE IF NOT EXISTS artist_genre (
+    ag_id SERIAL PRIMARY key,
+    genre INTEGER NOT NULL REFERENCES music_genre(genre_id),
+    artist INTEGER NOT NULL REFERENCES artist(artist_id)
     );
 
-CREATE TABLE IF NOT EXISTS Albums (
-    Albums_ID SERIAL PRIMARY key,
-    Album_name VARCHAR(50) UNIQUE NOT null,
-    Year_of_release INTEGER NOT NULL
+CREATE TABLE IF NOT EXISTS album (
+    album_id SERIAL PRIMARY key,
+    album_name VARCHAR(50) UNIQUE NOT null,
+    year_of_release INT NOT NULL
     );
-CREATE TABLE IF NOT EXISTS MusicianAlbums (
-    MA_ID SERIAL PRIMARY key,
-    Musician_ID INTEGER NOT NULL REFERENCES Musicians(Musician_ID),
-    Album_ID INTEGER NOT NULL REFERENCES Albums(Albums_ID)
+
+CREATE TABLE IF NOT EXISTS artist_album (
+    aa_id SERIAL PRIMARY key,
+    artist_id INT NOT NULL REFERENCES artist(artist_id),
+    album_id INT NOT NULL REFERENCES album(album_id)
     );
-CREATE TABLE IF NOT EXISTS Track_list (
-    Track_ID SERIAL PRIMARY key,
-    Track_name VARCHAR (80) NOT null,
-    Track_time INTEGER NOT null,
-    Album_ID INTEGER NOT NULL REFERENCES Albums(Albums_ID)
+
+CREATE TABLE IF NOT EXISTS track_list (
+    track_id SERIAL PRIMARY key,
+    track_name VARCHAR (80) NOT null,
+    track_time INTERVAL NOT null,
+    album_id INTEGER NOT NULL REFERENCES album(album_id)
     );
-create TABLE IF NOT EXISTS Collection (
-    Collection_ID Serial PRIMARY key,
-    name VARCHAR(50) NOT null,
-    Year_of_release INTEGER NOT NULL
+
+CREATE TABLE IF NOT EXISTS collection (
+    collection_id Serial PRIMARY key,
+    collection_name VARCHAR(50) NOT NULL,
+    year_of_release INT NOT NULL
     );
-CREATE TABLE IF NOT EXISTS CollectionTracks (
-    CT_ID SERIAL PRIMARY key,
-    Track_ID INTEGER NOT NULL REFERENCES Track_list (Track_ID),
-    Collection_ID INTEGER NOT NULL REFERENCES Collection (Collection_ID)
+
+CREATE TABLE IF NOT EXISTS collection_track (
+    ct_id SERIAL PRIMARY key,
+    track_id INT NOT NULL REFERENCES track_list (track_id),
+    collection_id INT NOT NULL REFERENCES collection (collection_id)
     );
  
