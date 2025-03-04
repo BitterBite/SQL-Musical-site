@@ -7,7 +7,7 @@ WHERE track_time = (SELECT max(track_time) FROM track_list);
 --Название треков, продолжительность которых не менее 3,5 минут.
 SELECT track_name, track_time 
 FROM track_list
-WHERE track_time >= '3 minutes 50 seconds';
+WHERE track_time >= '3 minutes 30 seconds';
 
 --Названия сборников, вышедших в период с 2018 по 2020 год включительно.
 SELECT collection_name, year_of_release 
@@ -48,11 +48,15 @@ JOIN track_list tl ON a.album_id = tl.album_id
 GROUP BY a.album_name;
 
 --Все исполнители, которые не выпустили альбомы в 2020 году.
-SELECT DISTINCT artist_name
-FROM artist a 
-JOIN artist_album aa ON aa.artist_id = a.artist_id 
-JOIN album a2 ON a2.album_id = aa.album_id
-WHERE a2.year_of_release != '2020';
+SELECT DISTINCT artist_name 
+FROM artist a  
+WHERE a.artist_name NOT IN ( 
+    SELECT artist_name 
+    FROM artist a 
+    JOIN artist_album aa ON a.artist_id = aa.artist_id
+    JOIN album a2 ON a2.album_id = aa.album_id
+    WHERE year_of_release = '2020'
+	);
 
 --Названия сборников, в которых присутствует конкретный исполнитель (выберите его сами).
 SELECT collection_name

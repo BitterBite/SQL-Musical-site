@@ -4,9 +4,9 @@ CREATE TABLE IF NOT EXISTS artist(
 	artist_name VARCHAR(50) NOT null
 	);
 
-CREATE TABLE IF NOT EXISTS music_Genre (
-    aenre_id SERIAL PRIMARY key,
-    aenre_name VARCHAR(50) NOT NULL
+CREATE TABLE IF NOT EXISTS music_genre (
+    genre_id SERIAL PRIMARY key,
+    genre_name VARCHAR(50) NOT NULL
     );
 
 CREATE TABLE IF NOT EXISTS artist_genre (
